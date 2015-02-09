@@ -2,9 +2,8 @@
  * Copyright 2012-2015 Johns Hopkins University HLTCOE. All rights reserved.
  * See LICENSE in the project root directory.
  */
-package edu.jhu.hlt.acute.tar;
+package edu.jhu.hlt.acute.iterators;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -14,18 +13,22 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
 /**
- *
+ * A class that provides the ability to iterate over all files in a
+ * <code>.tar</code> archive. It skips folders, but will iterate
+ * over files inside of them.
  */
 public class TarArchiveEntryByteIterator implements Iterator<byte[]> {
 
   private final TarArchiveInputStream tis;
 
   /**
-   * @throws IOException
-   *
+   * Wrap an {@link InputStream}.
+   * 
+   * @throws IOException if there are issues with the underlying archive (it has no
+   * files, for example)
    */
   public TarArchiveEntryByteIterator(InputStream is) throws IOException {
-    this.tis = new TarArchiveInputStream(new BufferedInputStream(is));
+    this.tis = new TarArchiveInputStream(is);
 
     // Prepare next entry.
     this.tis.getNextTarEntry();
@@ -33,7 +36,7 @@ public class TarArchiveEntryByteIterator implements Iterator<byte[]> {
 
   @Override
   public boolean hasNext() {
-    // couple possible states:
+    // possible states:
     // processed 1 file, and are now on a dir.
     // processed 1 file, and are now on another file.
     // done iterating (nothing left).
@@ -74,6 +77,6 @@ public class TarArchiveEntryByteIterator implements Iterator<byte[]> {
 
   @Override
   public void remove() {
-    throw new UnsupportedOperationException("You can't remove with this iterator.");
+    throw new UnsupportedOperationException("Cannot remove with this iterator.");
   }
 }
