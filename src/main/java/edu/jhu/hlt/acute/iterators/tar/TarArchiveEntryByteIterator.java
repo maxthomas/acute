@@ -4,20 +4,24 @@
  */
 package edu.jhu.hlt.acute.iterators.tar;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.utils.IOUtils;
+
+import edu.jhu.hlt.acute.AutoCloseableIterator;
 
 /**
  * A class that provides the ability to iterate over all files in a
  * <code>.tar</code> archive. It skips folders, but will iterate
  * over files inside of them.
  */
-public class TarArchiveEntryByteIterator implements Iterator<byte[]> {
+public class TarArchiveEntryByteIterator implements AutoCloseableIterator<byte[]> {
 
   private final TarArchiveInputStream tis;
 
@@ -32,6 +36,15 @@ public class TarArchiveEntryByteIterator implements Iterator<byte[]> {
 
     // Prepare next entry.
     this.tis.getNextTarEntry();
+  }
+  
+  /**
+   * Create this object based on a {@link Path}.
+   * 
+   * @throws IOException
+   */
+  public TarArchiveEntryByteIterator(Path path) throws IOException {
+    this(new BufferedInputStream(Files.newInputStream(path)));
   }
 
   @Override
@@ -78,5 +91,13 @@ public class TarArchiveEntryByteIterator implements Iterator<byte[]> {
   @Override
   public void remove() {
     throw new UnsupportedOperationException("Cannot remove with this iterator.");
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.AutoCloseable#close()
+   */
+  @Override
+  public void close() throws Exception {
+    this.tis.close();
   }
 }

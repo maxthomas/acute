@@ -53,8 +53,8 @@ public class TarAPITest {
     }
     
     try (InputStream is = Files.newInputStream(outPath);
-        BufferedInputStream bis = new BufferedInputStream(is);) {
-      TarArchiveEntryByteIterator iter = new TarArchiveEntryByteIterator(bis);
+        BufferedInputStream bis = new BufferedInputStream(is);
+        TarArchiveEntryByteIterator iter = new TarArchiveEntryByteIterator(bis);) {
       assertTrue(iter.hasNext());
       assertTrue(iter.hasNext());
       byte[] baOne = iter.next();
