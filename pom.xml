@@ -20,6 +20,12 @@
     <maven>3.0.4</maven>
   </prerequisites>
 
+  <scm>
+    <connection>scm:git:git@github.com:maxthomas/acute.git</connection>
+    <developerConnection>scm:git:git@github.com:maxthomas/acute.git</developerConnection>
+    <url>https://github.com/maxthomas/acute</url>
+  </scm>
+
   <developers>
     <developer>
       <email>max.thomas@jhu.edu</email>
