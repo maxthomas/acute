@@ -17,4 +17,9 @@ public interface Archiver extends AutoCloseable {
    * @throws IOException
    */
   public void addEntry(Archivable arch) throws IOException;
+  
+  /**
+   * Same as {@link AutoCloseable#close()}, but throws an {@link IOException}.
+   */
+  public void close() throws IOException;
 }

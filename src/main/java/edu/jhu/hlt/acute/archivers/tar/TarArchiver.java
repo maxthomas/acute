@@ -46,10 +46,8 @@ public class TarArchiver implements Archiver {
    */
   @Override
   public void addEntry(Archivable arch) throws IOException {
-    final String archExt = arch.getExtension();
-    final String archFN = arch.getFileName();
-    final String fileName = archExt.startsWith(".") ? archFN + archExt : archFN + "." + archExt;
-    TarArchiveEntry entry = new TarArchiveEntry(fileName);
+    final String fn = arch.getFileName();
+    TarArchiveEntry entry = new TarArchiveEntry(fn);
     byte[] cbytes = arch.getBytes();
     entry.setSize(cbytes.length);
     this.tos.putArchiveEntry(entry);

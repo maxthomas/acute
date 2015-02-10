@@ -4,14 +4,15 @@
  */
 package acute;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,10 +20,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import edu.jhu.hlt.acute.archivers.tar.TarArchiver;
-import edu.jhu.hlt.acute.iterators.tar.TarArchiveEntryByteIterator;
+import edu.jhu.hlt.acute.AutoCloseableIterator;
+import edu.jhu.hlt.acute.archivers.zip.ZipArchiver;
+import edu.jhu.hlt.acute.iterators.zip.ZipArchiveEntryByteIterator;
 
-public class TarAPITest {
+public class ZipAPITest {
   
   String sOne = "foo.string";
   String sTwo = "qux.string";
@@ -36,7 +38,8 @@ public class TarAPITest {
   
   @Before
   public void setUp() throws Exception {
-    outPath = tf.getRoot().toPath().resolve("test.tar");
+    // outPath = tf.getRoot().toPath().resolve("test.zip");
+    outPath = Paths.get("target").resolve("test.zip");
   }
 
   @After
@@ -47,14 +50,12 @@ public class TarAPITest {
   public void tarAPI () throws Exception {
     try (OutputStream os = Files.newOutputStream(outPath);
         BufferedOutputStream bos = new BufferedOutputStream(os);
-        TarArchiver archiver = new TarArchiver(bos);) {
+        ZipArchiver archiver = new ZipArchiver(bos);) {
       archiver.addEntry(saOne);
       archiver.addEntry(saTwo);
     }
     
-    try (InputStream is = Files.newInputStream(outPath);
-        BufferedInputStream bis = new BufferedInputStream(is);) {
-      TarArchiveEntryByteIterator iter = new TarArchiveEntryByteIterator(bis);
+    try (AutoCloseableIterator<byte[]> iter = new ZipArchiveEntryByteIterator(this.outPath)) {
       assertTrue(iter.hasNext());
       assertTrue(iter.hasNext());
       byte[] baOne = iter.next();

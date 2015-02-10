@@ -12,7 +12,6 @@ import edu.jhu.hlt.acute.archivers.Archivable;
 public class StringArchivable implements Archivable {
 
   private final String fileName;
-  private final String extension;
   private final byte[] contentBytes;
   
   /**
@@ -20,7 +19,6 @@ public class StringArchivable implements Archivable {
    */
   public StringArchivable(String in) {
     this.fileName = in;
-    this.extension = "string";
     this.contentBytes = in.getBytes();
   }
 
@@ -30,14 +28,6 @@ public class StringArchivable implements Archivable {
   @Override
   public String getFileName() {
     return this.fileName;
-  }
-
-  /* (non-Javadoc)
-   * @see edu.jhu.hlt.acute.archivers.Archivable#getExtension()
-   */
-  @Override
-  public String getExtension() {
-    return this.extension;
   }
 
   /* (non-Javadoc)
