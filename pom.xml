@@ -29,6 +29,15 @@
     </developer>
   </developers>
 
+  <contributors>
+    <contributor>
+      <email>jay.deyoung@jhu.edu</email>
+      <name>Jay DeYoung</name>
+      <url>https://github.com/jayded</url>
+      <id>jayded</id>
+    </contributor>
+  </contributors>
+
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
