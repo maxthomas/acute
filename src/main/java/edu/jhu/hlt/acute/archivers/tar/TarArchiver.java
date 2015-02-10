@@ -17,29 +17,20 @@ import edu.jhu.hlt.acute.archivers.Archiver;
 
 /**
  * A class that provides the ability to write entries to a .tar archive
- * in a forward-only fashion. New additions will overwrite files with the 
+ * in a forward-only fashion. New additions will overwrite files with the
  * same file name.
- * <br/>
- * <br/>
- * This implementation appends a <code>.</code> for the extension if the extension does not begin
- * with a <code>.</code>. 
- * <br/>
- * <br/>
- * For example, if the {@link Archivable} implementation's 
- * {@link Archivable#getExtension()} method returns
- * <code>elf</code>, this implementation will create archives with the name <code>fileName.elf</code>.
  */
 public class TarArchiver implements Archiver {
 
   private final TarArchiveOutputStream tos;
-  
+
   /**
-   * Wrap an {@link OutputStream}. 
+   * Wrap an {@link OutputStream}.
    */
   public TarArchiver(OutputStream os) {
     this.tos = new TarArchiveOutputStream(os);
   }
-  
+
   /*
    * (non-Javadoc)
    * @see edu.jhu.hlt.acute.archivers.Archiver#addEntry(edu.jhu.hlt.acute.archivers.Archivable)
