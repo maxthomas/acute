@@ -27,7 +27,7 @@ public class TarArchiveEntryByteIterator implements AutoCloseableIterator<byte[]
 
   /**
    * Wrap an {@link InputStream}.
-   * 
+   *
    * @throws IOException if there are issues with the underlying archive (it has no
    * files, for example)
    */
@@ -37,10 +37,10 @@ public class TarArchiveEntryByteIterator implements AutoCloseableIterator<byte[]
     // Prepare next entry.
     this.tis.getNextTarEntry();
   }
-  
+
   /**
    * Create this object based on a {@link Path}.
-   * 
+   *
    * @throws IOException
    */
   public TarArchiveEntryByteIterator(Path path) throws IOException {
@@ -97,7 +97,7 @@ public class TarArchiveEntryByteIterator implements AutoCloseableIterator<byte[]
    * @see java.lang.AutoCloseable#close()
    */
   @Override
-  public void close() throws Exception {
+  public void close() throws IOException {
     this.tis.close();
   }
 }
