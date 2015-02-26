@@ -14,7 +14,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
-import edu.jhu.hlt.acute.AutoCloseableIterator;
+import edu.jhu.hlt.utilt.AutoCloseableIterator;
 
 /**
  * A class that provides the ability to iterate over all files in a

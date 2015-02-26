@@ -6,10 +6,9 @@ package edu.jhu.hlt.acute.iterators.tar;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.zip.GZIPInputStream;
 
-import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
-
-import edu.jhu.hlt.acute.AutoCloseableIterator;
+import edu.jhu.hlt.utilt.AutoCloseableIterator;
 
 /**
  * A class that provides the ability to iterate over files in a
@@ -23,6 +22,6 @@ public class TarGzArchiveEntryByteIterator extends TarArchiveEntryByteIterator
    * @throws IOException
    */
   public TarGzArchiveEntryByteIterator(InputStream is) throws IOException {
-    super(new GzipCompressorInputStream(is));
+    super(new GZIPInputStream(is, 65536));
   }
 }

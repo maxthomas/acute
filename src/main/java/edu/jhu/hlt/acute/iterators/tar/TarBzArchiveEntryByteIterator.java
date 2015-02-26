@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 
-import edu.jhu.hlt.acute.AutoCloseableIterator;
+import edu.jhu.hlt.utilt.AutoCloseableIterator;
 
 /**
  * A class that provides the ability to iterate over files in a

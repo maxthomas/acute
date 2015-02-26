@@ -4,7 +4,9 @@
  */
 package acute;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -12,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.zip.GZIPOutputStream;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,6 +24,7 @@ import org.junit.rules.TemporaryFolder;
 
 import edu.jhu.hlt.acute.archivers.tar.TarArchiver;
 import edu.jhu.hlt.acute.iterators.tar.TarArchiveEntryByteIterator;
+import edu.jhu.hlt.acute.iterators.tar.TarGzArchiveEntryByteIterator;
 
 public class TarAPITest {
   
@@ -55,6 +59,29 @@ public class TarAPITest {
     try (InputStream is = Files.newInputStream(outPath);
         BufferedInputStream bis = new BufferedInputStream(is);
         TarArchiveEntryByteIterator iter = new TarArchiveEntryByteIterator(bis);) {
+      assertTrue(iter.hasNext());
+      assertTrue(iter.hasNext());
+      byte[] baOne = iter.next();
+      assertEquals(sOne, new String(baOne));
+      assertTrue(iter.hasNext());
+      assertTrue(iter.hasNext());
+      byte[] baTwo = iter.next();
+      assertEquals(sTwo, new String(baTwo));
+      assertFalse(iter.hasNext());
+    }
+  }
+  
+  @Test
+  public void gzAPI () throws Exception {
+    try (OutputStream os = Files.newOutputStream(outPath);
+        GZIPOutputStream gos = new GZIPOutputStream(os, 65536);
+        TarArchiver archiver = new TarArchiver(gos);) {
+      archiver.addEntry(saOne);
+      archiver.addEntry(saTwo);
+    }
+    
+    try (InputStream is = Files.newInputStream(outPath);
+        TarGzArchiveEntryByteIterator iter = new TarGzArchiveEntryByteIterator(is);) {
       assertTrue(iter.hasNext());
       assertTrue(iter.hasNext());
       byte[] baOne = iter.next();

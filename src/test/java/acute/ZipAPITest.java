@@ -20,9 +20,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import edu.jhu.hlt.acute.AutoCloseableIterator;
 import edu.jhu.hlt.acute.archivers.zip.ZipArchiver;
 import edu.jhu.hlt.acute.iterators.zip.ZipArchiveEntryByteIterator;
+import edu.jhu.hlt.utilt.AutoCloseableIterator;
 
 public class ZipAPITest {
   
