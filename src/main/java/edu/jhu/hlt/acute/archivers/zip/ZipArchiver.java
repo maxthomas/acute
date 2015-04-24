@@ -17,36 +17,37 @@ import edu.jhu.hlt.acute.archivers.Archivable;
 import edu.jhu.hlt.acute.archivers.Archiver;
 
 /**
- * 
+ *
  */
 public class ZipArchiver implements Archiver {
 
   private final ZipArchiveOutputStream zout;
-  
+
   /**
-   * Wrap an {@link Path} that represents a 
+   * Wrap an {@link Path} that represents a
    * <code>.zip</code> file. This constructor be used when writing to files on disk.
-   * 
-   * @throws IOException 
+   *
+   * @param path
+   * @throws IOException on IO error
    */
   public ZipArchiver(Path path) throws IOException {
     this.zout = new ZipArchiveOutputStream(path.toFile());
   }
-  
+
   /**
-   * Wrap an {@link OutputStream}. 
-   * <br/>
-   * <br/>
-   * Do not use this constructor if the {@link OutputStream} is writing to a file. 
-   * Use {@link #ZipArchiver(Path)} instead. 
-   * 
+   * Wrap an {@link OutputStream}.
+   * <br>
+   * <br>
+   * Do not use this constructor if the {@link OutputStream} is writing to a file.
+   * Use {@link #ZipArchiver(Path)} instead.
+   *
    * @param out an {@link OutputStream}
    * @see #ZipArchiver(Path)
    */
   public ZipArchiver(OutputStream out) {
     this.zout = new ZipArchiveOutputStream(out);
   }
-  
+
   /*
    * (non-Javadoc)
    * @see edu.jhu.hlt.acute.archivers.Archiver#close()
