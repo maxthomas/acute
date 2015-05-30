@@ -7,6 +7,6 @@ Latest Maven dependency
 <dependency>
   <groupId>edu.jhu.hlt</groupId>
   <artifactId>acute</artifactId>
-  <version>2.0.4</version>
+  <version>2.0.5</version>
 </dependency>
 ```
