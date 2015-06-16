@@ -27,17 +27,17 @@ import edu.jhu.hlt.acute.iterators.tar.TarArchiveEntryByteIterator;
 import edu.jhu.hlt.acute.iterators.tar.TarGzArchiveEntryByteIterator;
 
 public class TarAPITest {
-  
+
   String sOne = "foo.string";
   String sTwo = "qux.string";
   StringArchivable saOne = new StringArchivable(sOne);
   StringArchivable saTwo = new StringArchivable(sTwo);
-  
+
   Path outPath;
-  
+
   @Rule
   public TemporaryFolder tf = new TemporaryFolder();
-  
+
   @Before
   public void setUp() throws Exception {
     outPath = tf.getRoot().toPath().resolve("test.tar");
@@ -46,7 +46,7 @@ public class TarAPITest {
   @After
   public void tearDown() throws Exception {
   }
-  
+
   @Test
   public void tarAPI () throws Exception {
     try (OutputStream os = Files.newOutputStream(outPath);
@@ -55,7 +55,7 @@ public class TarAPITest {
       archiver.addEntry(saOne);
       archiver.addEntry(saTwo);
     }
-    
+
     try (InputStream is = Files.newInputStream(outPath);
         BufferedInputStream bis = new BufferedInputStream(is);
         TarArchiveEntryByteIterator iter = new TarArchiveEntryByteIterator(bis);) {
@@ -70,7 +70,7 @@ public class TarAPITest {
       assertFalse(iter.hasNext());
     }
   }
-  
+
   @Test
   public void gzAPI () throws Exception {
     try (OutputStream os = Files.newOutputStream(outPath);
@@ -79,9 +79,31 @@ public class TarAPITest {
       archiver.addEntry(saOne);
       archiver.addEntry(saTwo);
     }
-    
+
     try (InputStream is = Files.newInputStream(outPath);
         TarGzArchiveEntryByteIterator iter = new TarGzArchiveEntryByteIterator(is);) {
+      assertTrue(iter.hasNext());
+      assertTrue(iter.hasNext());
+      byte[] baOne = iter.next();
+      assertEquals(sOne, new String(baOne));
+      assertTrue(iter.hasNext());
+      assertTrue(iter.hasNext());
+      byte[] baTwo = iter.next();
+      assertEquals(sTwo, new String(baTwo));
+      assertFalse(iter.hasNext());
+    }
+  }
+
+  @Test
+  public void noBuffer () throws Exception {
+    try (OutputStream os = Files.newOutputStream(outPath);
+        TarArchiver archiver = new TarArchiver(os);) {
+      archiver.addEntry(saOne);
+      archiver.addEntry(saTwo);
+    }
+
+    try (InputStream is = Files.newInputStream(outPath);
+        TarArchiveEntryByteIterator iter = new TarArchiveEntryByteIterator(is);) {
       assertTrue(iter.hasNext());
       assertTrue(iter.hasNext());
       byte[] baOne = iter.next();

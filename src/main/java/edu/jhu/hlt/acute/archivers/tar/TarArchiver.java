@@ -4,12 +4,15 @@
  */
 package edu.jhu.hlt.acute.archivers.tar;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.zip.GZIPOutputStream;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
 import edu.jhu.hlt.acute.archivers.Archivable;
@@ -28,6 +31,27 @@ public class TarArchiver implements Archiver {
    * Wrap an {@link OutputStream}.
    */
   public TarArchiver(OutputStream os) {
+    this(new BufferedOutputStream(os, 1024 * 8 * 16));
+  }
+
+  /**
+   * Wrap an {@link GzipCompressorOutputStream}.
+   */
+  public TarArchiver(GzipCompressorOutputStream os) {
+    this.tos = new TarArchiveOutputStream(os);
+  }
+
+  /**
+   * Wrap an {@link GZIPOutputStream}.
+   */
+  public TarArchiver(GZIPOutputStream os) {
+    this.tos = new TarArchiveOutputStream(os);
+  }
+
+  /**
+   * Wrap an {@link BufferedOutputStream}.
+   */
+  public TarArchiver(BufferedOutputStream os) {
     this.tos = new TarArchiveOutputStream(os);
   }
 
