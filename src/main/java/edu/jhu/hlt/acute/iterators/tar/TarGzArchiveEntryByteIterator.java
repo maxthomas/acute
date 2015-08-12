@@ -6,7 +6,8 @@ package edu.jhu.hlt.acute.iterators.tar;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
+
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 
 import edu.jhu.hlt.utilt.AutoCloseableIterator;
 
@@ -15,13 +16,13 @@ import edu.jhu.hlt.utilt.AutoCloseableIterator;
  * <code>.tar.gz</code> archive. It skips folders, but will iterate
  * over files inside of them.
  */
-public class TarGzArchiveEntryByteIterator extends TarArchiveEntryByteIterator 
+public class TarGzArchiveEntryByteIterator extends TarArchiveEntryByteIterator
     implements AutoCloseableIterator<byte[]> {
 
   /**
    * @throws IOException
    */
   public TarGzArchiveEntryByteIterator(InputStream is) throws IOException {
-    super(new GZIPInputStream(is, 65536));
+    super(new GzipCompressorInputStream(is));
   }
 }

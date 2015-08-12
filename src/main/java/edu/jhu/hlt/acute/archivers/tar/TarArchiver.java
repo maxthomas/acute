@@ -8,7 +8,6 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.zip.GZIPOutputStream;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
@@ -38,13 +37,6 @@ public class TarArchiver implements Archiver {
    * Wrap an {@link GzipCompressorOutputStream}.
    */
   public TarArchiver(GzipCompressorOutputStream os) {
-    this.tos = new TarArchiveOutputStream(os);
-  }
-
-  /**
-   * Wrap an {@link GZIPOutputStream}.
-   */
-  public TarArchiver(GZIPOutputStream os) {
     this.tos = new TarArchiveOutputStream(os);
   }
 
