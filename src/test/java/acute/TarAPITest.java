@@ -14,8 +14,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.zip.GZIPOutputStream;
 
+import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -74,7 +74,7 @@ public class TarAPITest {
   @Test
   public void gzAPI () throws Exception {
     try (OutputStream os = Files.newOutputStream(outPath);
-        GZIPOutputStream gos = new GZIPOutputStream(os, 65536);
+        GzipCompressorOutputStream gos = new GzipCompressorOutputStream(os);
         TarArchiver archiver = new TarArchiver(gos);) {
       archiver.addEntry(saOne);
       archiver.addEntry(saTwo);
