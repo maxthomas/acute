@@ -8,6 +8,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
@@ -37,14 +38,16 @@ public class TarArchiver implements Archiver {
    * Wrap an {@link GzipCompressorOutputStream}.
    */
   public TarArchiver(GzipCompressorOutputStream os) {
-    this.tos = new TarArchiveOutputStream(os);
+    this.tos = new TarArchiveOutputStream(os, StandardCharsets.UTF_8.name());
+    this.tos.setLongFileMode(TarArchiveOutputStream.LONGFILE_GNU);
   }
 
   /**
    * Wrap an {@link BufferedOutputStream}.
    */
   public TarArchiver(BufferedOutputStream os) {
-    this.tos = new TarArchiveOutputStream(os);
+    this.tos = new TarArchiveOutputStream(os, StandardCharsets.UTF_8.name());
+    this.tos.setLongFileMode(TarArchiveOutputStream.LONGFILE_GNU);
   }
 
   /*

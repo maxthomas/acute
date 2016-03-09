@@ -12,6 +12,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -21,6 +22,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.jhu.hlt.acute.archivers.tar.TarArchiver;
 import edu.jhu.hlt.acute.iterators.tar.TarArchiveEntryByteIterator;
@@ -28,8 +31,10 @@ import edu.jhu.hlt.acute.iterators.tar.TarGzArchiveEntryByteIterator;
 
 public class TarAPITest {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(TarAPITest.class);
+
   String sOne = "foo.string";
-  String sTwo = "qux.string";
+  String sTwo = "Internal_Macedonian_Revolutionary_Organization_–_Democratic_Party_for_Macedonian_National_Unity.comm";
   StringArchivable saOne = new StringArchivable(sOne);
   StringArchivable saTwo = new StringArchivable(sTwo);
 
@@ -49,6 +54,7 @@ public class TarAPITest {
 
   @Test
   public void tarAPI () throws Exception {
+    LOGGER.info("Using charset: {}", StandardCharsets.UTF_8.name());
     try (OutputStream os = Files.newOutputStream(outPath);
         BufferedOutputStream bos = new BufferedOutputStream(os);
         TarArchiver archiver = new TarArchiver(bos);) {

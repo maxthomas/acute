@@ -13,7 +13,7 @@ public class StringArchivable implements Archivable {
 
   private final String fileName;
   private final byte[] contentBytes;
-  
+
   /**
    * Wrap a {@link String}.
    */

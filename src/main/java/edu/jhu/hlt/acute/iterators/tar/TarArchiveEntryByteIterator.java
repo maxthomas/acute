@@ -7,6 +7,7 @@ package edu.jhu.hlt.acute.iterators.tar;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -32,7 +33,7 @@ public class TarArchiveEntryByteIterator implements AutoCloseableIterator<byte[]
    * files, for example)
    */
   public TarArchiveEntryByteIterator(InputStream is) throws IOException {
-    this.tis = new TarArchiveInputStream(is);
+    this.tis = new TarArchiveInputStream(is, StandardCharsets.UTF_8.name());
 
     // Prepare next entry.
     this.tis.getNextTarEntry();
