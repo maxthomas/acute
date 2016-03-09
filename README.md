@@ -1,4 +1,5 @@
 # acute
+[![Travis CI](https://travis-ci.org/maxthomas/acute.svg?branch=master)](https://travis-ci.org/maxthomas/acute)
 Makes streaming over archives a little easier.
 
 Latest Maven dependency
