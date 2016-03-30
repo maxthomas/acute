@@ -10,7 +10,7 @@
 
   <groupId>edu.jhu.hlt</groupId>
   <artifactId>acute</artifactId>
-  <version>2.1.2</version>
+  <version>2.2.0</version>
   <packaging>jar</packaging>
 
   <name>acute</name>
@@ -24,8 +24,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <log4j.version>2.3</log4j.version>
-    <jackson.version>2.6.1</jackson.version>
+    <log4j.version>2.5</log4j.version>
+    <jackson.version>2.7.3</jackson.version>
   </properties>
 
   <prerequisites>
@@ -66,19 +66,19 @@
     <dependency>
       <groupId>edu.jhu.hlt</groupId>
       <artifactId>utilt</artifactId>
-      <version>1.4.1</version>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
-      <version>1.9</version>
+      <version>1.10</version>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
-      <version>4.11</version>
+      <version>4.12</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
